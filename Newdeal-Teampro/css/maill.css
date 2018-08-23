@@ -1,0 +1,37 @@
+#form-one {
+    margin: 0 auto;
+    width: 1200px;
+    height: auto;
+}
+
+#mail-form {
+    background-color: aquamarine;
+    margin: 0 auto;
+    text-align: center;
+}
+#form-title {
+    width: auto;
+    height: 50px;
+    margin: 0 auto;
+    background-color: rgba(90, 84, 84, 0);
+    border: 0px;
+    border-bottom: 2px solid;
+    text-align: center;
+    font-size: 40px;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    vertical-align: middle;
+    grid-row-gap: 1em;
+    grid-column-gap: 1em;
+    margin: 0 auto;
+}
+.grid-item{
+    text-align: center;
+    grid-auto-rows: minmax(300px, 300px);
+    background-color: aliceblue;
+}
+.grid-ex{
+       grid-auto-rows: minmax(300px, 300px);
+}
