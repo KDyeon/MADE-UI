@@ -21,17 +21,16 @@
 }
 .grid-container {
     display: grid;
-    grid-template-columns: 300px 300px 300px;
-    vertical-align: middle;
     grid-row-gap: 1em;
     grid-column-gap: 1em;
+    grid-template-columns: 300px 300px 300px;
     margin: 0 auto;
 }
 .grid-item{
-    text-align: center;
     grid-auto-rows: minmax(300px, 300px);
-    background-color: aliceblue;
+    width: 300px;
 }
-.grid-ex{
-       grid-auto-rows: minmax(300px, 300px);
+.grid-item img{
+    max-width: 300px;
 }
+textexplain{

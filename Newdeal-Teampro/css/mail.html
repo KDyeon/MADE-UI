@@ -12,67 +12,27 @@
     <div id="form-one">
         <div id="mail-form">
             <input type="text" id="form-title" placeholder="[ TITLE ]">
-            <div class="grid-container">
-                <div class="grid-item">
-                    <input type="file" name="ex-file1" id ="ex-file1" onchange="previewImage(this, 'ViewArea')"accept="image/*" value="파일 추가..">
-                <div id="ViewArea"
-                </div>
-                <div class="grid-item"> <input type="file" name="ex-file1" accept="image/*" value="파일 추가..">
-                </div>
-                <div class="grid-item"> <input type="file" name="ex-file1" accept="image/*" value="파일 추가..">
-                </div>
-                 <div class="grid-ex">
-                    <textarea id="explain"></textarea>
-                </div>
-                    <div class="grid-ex">
-                    <textarea id="explain"></textarea>
-                </div>
-                    <div class="grid-ex">
-                    <textarea id="explain"></textarea>
-                </div>
-                   
-                
-                <div class="grid-item"> <input type="file" name="ex-file1" accept="image/*" value="파일 추가..">
-                </div>
-                 <div class="grid-item">
-                    <input type="file" name="ex-file1" accept="image/*" value="파일 추가..">
-                </div>
-                <div class="grid-item"> <input type="file" name="ex-file1" accept="image/*" value="파일 추가..">
-                </div>
-                 <div class="grid-ex">
-                    <textarea id="explain"></textarea>
-                </div>
-                    <div class="grid-ex">
-                    <textarea id="explain"></textarea>
-                </div>
-                    <div class="grid-ex">
-                    <textarea id="explain"></textarea>
-                </div>
-                    <div class="grid-item"> <input type="file" name="ex-file1" accept="image/*" value="파일 추가..">
-                </div>
-                 <div class="grid-item">
-                    <input type="file" name="ex-file1" accept="image/*" value="파일 추가..">
-                </div>
-                <div class="grid-item"> <input type="file" name="ex-file1" accept="image/*" value="파일 추가..">
-                </div>
-                <div class="grid-ex">
-                    <textarea id="explain"></textarea>
-                </div>
-                    <div class="grid-ex">
-                    <textarea id="explain"></textarea>
-                </div>
-                    <div class="grid-ex">
-                    <textarea id="explain"></textarea>
-                </div>
-                
-           
-              </div>
+            <button id="plus"></button>
 
+            <div class="card">
+                <input type="file" class="card-img-top" id="image" accept="image/*" alt="Card image gap" />
+                <div id="image_preview">
+                    <img src="#" />
+                    <br />
+                    <a href="#">Remove</a>
+                </div>
+                <form class="card-text">
+                      <input type="text" class="site-link" row>
+                       <textarea id="textexplain" rows="4" cols="50" style="resize: none;"></textarea>
+
+                    
+                </form>
             </div>
-
-
         </div>
-
+    </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
+<script src="mail.js "></script>
 </html>
