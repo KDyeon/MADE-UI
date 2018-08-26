@@ -1,0 +1,6 @@
+table[id = mail-form]{
+    border: 1px solid;
+    width: 300px;
+    height: auto;
+    background-color: aqua;
+}

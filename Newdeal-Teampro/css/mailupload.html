@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>mail-form</title>
+    <link rel="stylesheet" type="text/css" href="mail.css">
+    <link rel="stylesheet" type="text/css" href="common.css">
+</head>
+
+<body>
+
+<form name="PageForm">
+ <input type="hidden" name="fcnt" value="1"> 
+    <span id="areaFile">
+        <input type="file" name="file1">
+    </span>
+ <br>
+    <input type="button" value="++" onclick="multyFile(1);"> &nbsp;&nbsp;
+    <input type="button" value="--" onclick="multyFile(-1);"><br>
+</form>
+
+    </body>
+    <script src="mail.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js "></script>
+</html>
