@@ -1,6 +1,7 @@
-table[id = mail-form]{
+table[id = form_table]{
     border: 1px solid;
     width: 300px;
     height: auto;
     background-color: aqua;
 }
+

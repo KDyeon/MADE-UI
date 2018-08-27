@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>폼 추가/삭제 예제</title>
+    <title>mail-form</title>
+    <link rel="stylesheet" type="text/css" href="maill.css">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script type="text/javascript">
+        var count = 0;
+        function addForm() {
+            var addedFormDiv = document.getElementById("addedFormDiv");
+            var str = "";
+            str += `<div class="card" style="width: 18rem; ">\
+                <div class="image">\
+                    <input type="file" class="upload" accept="image/*">\
+                    <img class="card-img-top" href="#" alt="Card image cap">\
+                </div>\
+                <div class="card-body">\
+                    <input type="text" class="card-title">\
+                    <textarea class="card-text" rows="5"cols="30" placeholder="추가 설명을 입력드립니다.">\</textarea>\
+                </div>\
+            </div>`
+            var addedDiv = document.createElement("div"); 
+            addedDiv.id = "added_" + count; 
+            addedDiv.innerHTML = str; 
+            addedFormDiv.appendChild(addedDiv);
+            count++;
+            document.baseForm.count.value = count;
+       }
+        function delForm() {
+            var addedFormDiv = document.getElementById("addedFormDiv");
+            if (count > 1) {
+                var addedDiv = document.getElementById("added_" + (--count));
+                addedFormDiv.removeChild(addedDiv);
+            } else {
+                document.baseForm.reset(); 
+            }
+        }
+    </script>
+</head>
+<body onload="addForm();">
+    <div id="form-one">
+        <div id="mail-form">
+            <input type="text" id="form-title" placeholder="[ TITLE ]">
+            <div id="form-mail"></div>
+            <center>
+                <form name="baseForm" action="" method="post">
+                    <input type="hidden" name="count" value="0">
+                    <div id="addedFormDiv"></div>
+                    <br>
+                    <input type="Button" value="추가" onclick="addForm()">
+                    <input type="Button" value="삭제" onclick="delForm()">
+                    <input type="Submit" value="완료">
+                </form>
+            <div id="bott">
+                <button id="mail-prev">미리보기</button>
+                <button id="mail-submit">확인</button>
+            </div>
+            </center>
+</body>
+
+</html>
