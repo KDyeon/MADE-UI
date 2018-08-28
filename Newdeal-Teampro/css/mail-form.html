@@ -16,16 +16,24 @@
                     <input type="hidden" name="count" value="0">
                     <div id="addedFormDiv"></div>
                     <br>
-                    <input type="Button" value="추가" onclick="addForm()">
-                    <input type="Button" value="삭제" onclick="delForm()">
+                    <input type="button" value="추가" onclick="addForm();">
+                    <input type="button" value="삭제" onclick="delForm();">
                     <input type="Submit" value="완료">
                 </form>
             <div id="bott">
-                <button id="mail-prev">미리보기</button>
-                <button id="mail-submit">확인</button>
+               <center>
+                <button id="mail-prev" onclick="addForm()">미리보기</button>
+                <button id="mail-submit" onclick="delForm()">확인</button>
+                </center>
             </div>
             </center>
 </body>
 <script src = "mail.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+
+
+
+
 
 
