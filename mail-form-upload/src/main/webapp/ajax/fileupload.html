@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body onload="addForm();">
-    <div id="form-one">
         <div id="mail-form">
             <input type="text" id="form-title" placeholder="[ TITLE ]">
-            <div id="form-mail"></div>
+            <div id="form-mail">
             <center>
                 <form name="baseForm" action="" method="post">
                     <input type="hidden" name="count" value="0">
@@ -27,6 +26,8 @@
                 </center>
             </div>
             </center>
+            </div>
+            </div>
 </body>
 <script src='node_modules/jquery/dist/jquery.js'></script>
 <script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
@@ -34,6 +35,7 @@
 <script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
 
 <script>
+"use strict"
 var count = 0;
 
 function addForm() {
@@ -44,7 +46,7 @@ function addForm() {
         <label for="image">상품정보 : </label>\
         <input type="file" id="image" onchange="imgprev(this);" accept="image/*" />\
         </form>\
-        <img src="#" class="img-add" id="imageprev"/>\
+        <img src="#" id="imageprev"/>\
         <div id="preview">\
         <a href="#" id="imgdel">[상품사진 삭제하기]</a>\
         <input type="text" class="title" accept="image/*">\
@@ -57,7 +59,6 @@ function addForm() {
     addedDiv.id = "added_" + count;
     addedDiv.innerHTML = str;
     addedFormDiv.appendChild(addedDiv);
-    $('img.img-add').attr('src', )
     count++;
     document.baseForm.count.value = count;
 }
@@ -80,6 +81,14 @@ function imgprev(input){
         fildr.readAsDataURL(input.files[0]);
     }
 }
+$('#imgdel').click(()=>{
+    $('#imgaeprev').remove();
+})
+
+$('#image').click(()=>{
+    for( var i = 1; i<=9; i++)
+        console.log(i)
+})
         </script>
 
 

@@ -1,13 +1,8 @@
-#form-one {
-    margin: 0 auto;
-    width: 1200px;
-    height: auto;
-}
-
 #mail-form {
     background-color: aquamarine;
     margin: 0 auto;
     text-align: center;
+    width: 300px;
 }
 #form-title {
     width: 50%;
@@ -30,9 +25,9 @@
     border-bottom: 1px solid;     
 }
 #card{
-        width: 18rem;
+        width: 250px;
         margin: 2%;
 }
-#explain{
-    
+#imgdel{
+    max-width: 250px;
 }
