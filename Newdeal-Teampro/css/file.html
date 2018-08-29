@@ -14,7 +14,7 @@
 
     <button id="addBtn" type="button">추가</button>
     <script src="node_modules/handlebars/dist/handlebars.min.js"></script>
-    <script src='node_modules/jquery/dist/jquery.js'></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
     <script src="node_modules/blueimp-load-image/js/load-image.all.min.js"></script>
     <script src="node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
@@ -26,6 +26,16 @@
     <script>
         "use strict"
          var count = 1;
+        var str=`<div id="mail-form${count}">\
+        사진: <input id="fileupload${count}" type="file" name="files" multiple><br>\
+        <div id="images-div${count}"></div>\
+        상품명: <input id="title${count}" type="text"><br>\
+        상품 상세: <textarea id='explain${count}' type='text'></textarea><br>\
+        <a href="#" id="imgdel${count}">[상품사진 삭제하기]</a><br>\
+        <button id='upload-btn${count}' type='button'>등록</button>\
+        </div>`;
+        var imagesDiv = `#images-div${count}`;
+        
         $('#addBtn').click((e) => {
             console.log(count);
 
@@ -34,14 +44,7 @@
                     var addedDiv = document.createElement('div');
                     addedDiv.id = "mailform" + count;
                     count++;
-                    $('#test').append(`<div id="mail-form${count}">\
-        사진: <input id="fileupload${count}" type="file" name="files" multiple><br>\
-        <div id="images-div${count}"></div>\
-        상품명: <input id="title${count}" type="text"><br>\
-        상품 상세: <textarea id='explain${count}' type='text'></textarea><br>\
-        <a href="#" id="imgdel${count}">[상품사진 삭제하기]</a><br>\
-        <button id='upload-btn${count}' type='button'>등록</button>\
-        </div>`);
+                    $('#test').append(str);
                 
                     break;
                     //  document.baseForm.count.value = count;
@@ -54,7 +57,7 @@
         });
         console.log(count);
         
-        $('#fileupload').fileupload({
+        $(`#fileupload${count}`).fileupload({
             url: '../mvc/mail/mailprev',
             dataType: 'json',
             sequentialUploads: true,
@@ -65,12 +68,12 @@
             previewMaxWidth: 250,
             previewMaxHeight: 250,
             previewCrop: false,
-
+            
             processalways: function(e, data) {
                 console.log('업로드중.... ')
                 console.log(count);
                 console.log(data.files);
-                var imagesDiv = $(`#images-div${count}`);
+                
                 imagesDiv.html("");
                 for (var i = 0; i < data.files.length; i++) {
                     try {
@@ -80,6 +83,7 @@
                                 .css('height', '250px')
                                 .appendTo(imagesDiv)
                                 .slideDown();
+                            console.log('오ㅑ?');
                         }
                     } catch (err) {
                         console.log('업로드 실패');
@@ -90,6 +94,7 @@
                     data.submit();
                 });
             },
+            
             /*submit 전송*/
             submit: function(e, data) {
                 console.log('전송 완료!!');
