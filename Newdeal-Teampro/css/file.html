@@ -7,24 +7,23 @@
 </head>
 
 <body>
-  <div id="mail">
-            <input type="text" id="form-title" placeholder="[ TITLE ]">
-            <div id="form-mail"></div>
-            <center>
+    <div id="mail">
+        <input type="text" id="form-title" placeholder="[ TITLE ]">
+        <div id="form-mail"></div>
+        <center>
 
-<div id="test">
-    
-    
-</div>
-      <div id="bott">
-               <center>
-                <button id="mail-prev" onclick="addForm()">미리보기</button>
-                <button id="mail-submit" onclick="delForm()">확인</button>
+            <div id="test">
+
+
+            </div>
+            <div id="bott">
+                <center>
+                    <button id="mail-prev" onclick="addForm()">미리보기</button>
+                    <button id="mail-submit" onclick="delForm()">확인</button>
                 </center>
             </div>
-            </center>
-      </center>
-      </div>
+        </center>
+    </div>
     <button id="addBtn" type="button">추가</button>
     <script src="node_modules/handlebars/dist/handlebars.min.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
@@ -36,25 +35,26 @@
     <script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
     <script src="node_modules/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
     <script src="node_modules/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     <script>
-         "use strict"
-                var count=0;
-        
+        "use strict"
+        var count = 0;
+
         let str = null;
-        
+
         function createStr(count) {
-            return str =`<div id="mail-form${count} style="margin-top:10%"">\
+            return str = `<div id="mail-form${count}" class="draggable ui-widget-content" style="margin-top:10%;
+                                border: 2px dashed;">\
             사진: <input id="fileupload${count}" type="file" name="files" multiple><br>\
-            <div id="#images-div${count}"></div>\
+            <div id="#images-div${count}"><img id="image" src="#"></div>\
             상품명: <input id="title${count}" type="text"><br>\
             상품 상세: <textarea id='explain${count}' type='text'></textarea><br>\
             <a href="#" id="imgdel${count}">[상품사진 삭제하기]</a><br>\
             <button id='upload-btn${count}' type='button'>등록</button>\
             </div>`;
-            
+
         }
-        
-       
+
 
         $('#addBtn').click((e) => {
             count++;
@@ -64,82 +64,82 @@
                 for (var i = 0; i <= count; i++) {
                     var addedDiv = document.createElement('div');
                     addedDiv.id = "mailform" + count;
-                    
+
                     $('#test').append(str);
-                
+
                     break;
                     //  document.baseForm.count.value = count;
                     // console.log(i);
-                    
+
                 }
-                
+
             } else {
                 alert('항목을 모두 추가하셨습니다.');
             };
         });
-        
-        
-        $(`#fileupload${count}`).click((e)=>{
-              $(`#fileupload${count}`).fileupload({
-            url: '../mvc/mail/mailprev',
-            dataType: 'json',
-            sequentialUploads: true,
-            singleFileUploads: false,
-            autoUpload: false,
-            disableImageResize: /Android(?!.*Chrome)|Opera/
-                .test(window.navigator && navigator.userAgent),
-            previewMaxWidth: 250,
-            previewMaxHeight: 250,
-            previewCrop: false,
-            
-            processalways: function(e, data) {
-                console.log('업로드중.... ')
-                console.log(count);
-                console.log(data.files);
-                
-                imagesDiv.html("");
-                for (var i = 0; i < data.files.length; i++) {
-                    try {
-                        if (data.files[i].preview.toDataURL) {
-                            $("<img>")
-                                .attr('src', data.files[i].preview.toDataURL())
-                                .css('height', '250px')
-                                .appendTo(imagesDiv)
-                                .slideDown();
-                            console.log('오ㅑ?');
-                        }
-                    } catch (err) {
-                        console.log('업로드 실패');
+
+        $(`#fileupload${count}`).click((e) => {
+            console.log("찍혀라");
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#image').change(function() {
+                            alert(this.vlaue);
+                            readURL(this);
+                        })
                     }
                 }
-                $('#upload-btn').unbind("click");
-                $('#upload-btn').click(function() {
-                    data.submit();
-                });
-            },
-            
-            /*submit 전송*/
-            submit: function(e, data) {
-                console.log('전송 완료!!');
-                data.formData = {
-                    title: $(`#title${count}`).val(),
-                    explain: $(`#explain${count}`).val()
-                };
-            },
-            /*전송후 mailprev로 폼 전송 */
-            done: function(e, data) {
-                console.log('submit()...');
-                console.log(data.result);
-                $('<p/>').text("" + data.result.title).appendTo(document.body);
-                $('<p/>').text("" + data.result.explain).appendTo(document.body);
-                $.each(data.result.filenames, function(index, filename) {
-                    $('<p/>').text(filename).appendTo(document.body);
-                });
+
             }
         })
-            
-        })
-      
-       
+
+        dragElement(document.getElementById('mail-form'));
+
+        function dragElement(elmnt) {
+            var pos1 = 0,
+                pos2 = 0,
+                pos3 = 0,
+                pos4 = 0;
+            if (document.getElementById(elmnt.id + 'mail-form')) {
+                /* if present, the header is where you move the DIV from:*/
+                document.getElementById(elmnt.id + 'mail-form').onmousedown = dragMouseDown;
+            } else {
+                /* otherwise, move the DIV from anywhere inside the DIV:*/
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                /* stop moving when mouse button is released:*/
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+
     </script>
 </body>
