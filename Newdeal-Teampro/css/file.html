@@ -7,12 +7,12 @@
 </head>
 
 <body>
-    <div id="mail" class="modal">
+    <div id="mail" >
         <input type="text" id="form-title" placeholder="[ TITLE ]">
         <div id="form-mail"></div>
         <center>
 
-            <div id="test">
+            <div id="test" class="modal">
 
 
             </div>
@@ -105,11 +105,11 @@
               alert("파일을 반드시 업로드 해주세요!!");
             }
         }
-            var modal = document.getElementById("mail");
-            var btn = document.getElementById("mail-prev");
-            btn.onclick = function(){
-                modal.style.display = "block";
-            }
+          function preview(){
+              var prev;
+              prev = window.open('#test', 'introwin',
+                              'width=1200,height=2400'  );
+          }
         
     </script>
 </body>
