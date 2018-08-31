@@ -1,88 +1,72 @@
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>폼 추가/삭제 예제</title>
-    <title>mail-form</title>
-    <link rel="stylesheet" type="text/css" href="maill.css">
-    <link rel="stylesheet" type="text/css" href="common.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-</head>
-<body onload="addForm();">
-    <div id="form-one">
-        <div id="mail-form">
-            <input type="text" id="form-title" placeholder="[ TITLE ]">
-            <div id="form-mail"></div>
-            <center>
-                <form name="baseForm" action="" method="post">
-                    <input type="hidden" name="count" value="0">
-                    <div id="addedFormDiv"></div>
-                    <br>
-                    <input type="button" value="추가" onclick="addForm();">
-                    <input type="button" value="삭제" onclick="delForm();">
-                    <input type="Submit" value="완료">
-                </form>
-            <div id="bott">
-               <center>
-                <button id="mail-prev" onclick="addForm()">미리보기</button>
-                <button id="mail-submit" onclick="delForm()">확인</button>
-                </center>
-            </div>
-            </center>
-</body>
-<script src='node_modules/jquery/dist/jquery.js'></script>
-<script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
-<script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    <title></title>
+    <style type="text/css">
+        .preView { width: 150px; height: 150px; text-align: center; border:1px solid silver; }
+    </style>
+    <script type="text/javascript">
 
-<script>
-var count = 0;
+        function fileUploadPreview(thisObj, preViewer) {
+            if(!/(\.gif|\.jpg|\.jpeg|\.png)$/i.test(thisObj.value)) {
+                alert("이미지 형식의 파일을 선택하십시오");
+                return;
+            }
 
-function addForm() {
-    var addedFormDiv = document.getElementById("addedFormDiv");
-    var str = "";
-    str += `<div id="card">\
-        <form>\
-        <label for="image">상품정보 : </label>\
-        <input type="file" id="image" onchange="imgprev(this);" accept="image/*" />\
-        </form>\
-        <img src="#" class="img-add" id="imageprev"/>\
-        <div id="preview">\
-        <a href="#" id="imgdel">[상품사진 삭제하기]</a>\
-        <input type="text" class="title" accept="image/*">\
-        <textarea class="explain" rows="5"cols="30" placeholder="추가 설명을 입력해주세요..">\</textarea>\
-        </div>\
-        <center>\
-        </div>`
+            preViewer = (typeof(preViewer) == "object") ? preViewer : document.getElementById(preViewer);
+            var ua = window.navigator.userAgent;
 
-    var addedDiv = document.createElement("div");
-    addedDiv.id = "added_" + count;
-    addedDiv.innerHTML = str;
-    addedFormDiv.appendChild(addedDiv);
-    $('img.img-add').attr('src', )
-    count++;
-    document.baseForm.count.value = count;
-}
+            if (ua.indexOf("MSIE") > -1) {
+                var img_path = "";
+                if (thisObj.value.indexOf("\\fakepath\\") < 0) {
+                    img_path = thisObj.value;
+                } else {
+                    thisObj.select();
+                    var selectionRange = document.selection.createRange();
+                    img_path = selectionRange.text.toString();
+                    thisObj.blur();
+                }
+                preViewer.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='fi" + "le://" + img_path + "', sizingMethod='scale')";
+            } else {
+                preViewer.innerHTML = "";
+                var W = preViewer.offsetWidth;
+                var H = preViewer.offsetHeight;
+                var tmpImage = document.createElement("img");
+                preViewer.appendChild(tmpImage);
 
-function delForm() {
-    var addedFormDiv = document.getElementById("addedFormDiv");
-    if (count > 1) {
-        var addedDiv = document.getElementById("added_" + (--count));
-        addedFormDiv.removeChild(addedDiv);
-    } else {
-        document.baseForm.reset();
-    }
-}
-function imgprev(input){
-    if(input.files && input.files[0]){
-        var fildr = new FileReader();
-        fildr.onload = function(e){
-            $("#imageprev").attr('src', e.target.result);
+                tmpImage.onerror = function () {
+                    return preViewer.innerHTML = "";
+                }
+
+                tmpImage.onload = function () {
+                    if (this.width > W) {
+                        this.height = this.height / (this.width / W);
+                        this.width = W;
+                    }
+                    if (this.height > H) {
+                        this.width = this.width / (this.height / H);
+                        this.height = H;
+                    }
+                }
+                if (ua.indexOf("Firefox/3") > -1) {
+                    var picData = thisObj.files.item(0).getAsDataURL();
+                    tmpImage.src = picData;
+                } else {
+                    tmpImage.src = "file://" + thisObj.value;
+                }
+            }
         }
-        fildr.readAsDataURL(input.files[0]);
-    }
-}
-        </script>
+
+    </script>
+</head>
+<body>
+    <input id="file" name="file" type="file" onchange="fileUploadPreview(this, 'preView')" />
+    <div id="preView" class="preView" title="이미지미리보기"></div>
+</body>
+</html>
 
 
+출처: http://finewoo.tistory.com/54 [개발자 노트]
 
+출처: http://finewoo.tistory.com/54 [개발자 노트]
 
-
+출처: http://finewoo.tistory.com/54 [개발자 노트]

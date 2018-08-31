@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <div id="mail">
+    <div id="mail" class="modal">
         <input type="text" id="form-title" placeholder="[ TITLE ]">
         <div id="form-mail"></div>
         <center>
@@ -18,13 +18,14 @@
             </div>
             <div id="bott">
                 <center>
-                    <button id="mail-prev" onclick="addForm()">미리보기</button>
-                    <button id="mail-submit" onclick="delForm()">확인</button>
+                    <button id="mail-prev" onclick="preview();">미리보기</button>
+                    <button id="mail-submit" onclick="okok();">확인</button>
                 </center>
             </div>
         </center>
     </div>
     <button id="addBtn" type="button">추가</button>
+     <script src="https://code.jquery.com/jquery-latest.js"></script>
     <script src="node_modules/handlebars/dist/handlebars.min.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
@@ -43,16 +44,14 @@
         let str = null;
 
         function createStr(count) {
-            return str = `<div id="mail-form${count}" class="draggable ui-widget-content" style="margin-top:10%;
+            return str = `<div id="mail-form${count}" style="margin-top:10%;
                                 border: 2px dashed;">\
-            사진: <input id="fileupload${count}" type="file" name="files" multiple><br>\
-            <div id="#images-div${count}"><img id="image" src="#"></div>\
-            상품명: <input id="title${count}" type="text"><br>\
-            상품 상세: <textarea id='explain${count}' type='text'></textarea><br>\
-            <a href="#" id="imgdel${count}">[상품사진 삭제하기]</a><br>\
-            <button id='upload-btn${count}' type='button'>등록</button>\
+            <div id="image-div${count}"> 사진:<br> <input id="fileupload${count}" type="file" name="files" accept="image/*"><br>\
+            <img id="image${count}" src="#" style="max-width : 300px"></div>\
+            상품명:<br> <input id="title${count}" type="text"><br>\
+            상품 상세:<br> <textarea id='explain${count}' type='text' cols="40" rows="5" style="resize:none;"></textarea><br><br>\
             </div>`;
-
+            //<div id="#images-div${count}"></div>
         }
 
 
@@ -72,74 +71,45 @@
                     // console.log(i);
 
                 }
-
             } else {
                 alert('항목을 모두 추가하셨습니다.');
             };
         });
-
-        $(`#fileupload${count}`).click((e) => {
-            console.log("찍혀라");
-
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#image').change(function() {
-                            alert(this.vlaue);
-                            readURL(this);
-                        })
-                    }
-                }
-
+       $('#test').click((e) => {
+            var click_id = e.target.getAttribute('id');
+            var id_num = click_id.substr(10, 11);
+            if (click_id.substr(0, 10) == 'fileupload') {                
+                $(`#fileupload${id_num}`).change(() => {
+                    console.log(`#fileupload${id_num}`);
+                    var input_id = `#fileupload${id_num}`;
+                    readURL(id_num);
+                })
+            } else {
+                console.log("실패");
             }
         })
 
-        dragElement(document.getElementById('mail-form'));
+        function readURL(id_num) {
+            var input_id  = document.querySelector(`#fileupload${id_num}`);
+            console.log('체크 값 : '+ input_id.files[0]);
+            if (input_id.files && input_id.files[0]) {
+                var reader = new FileReader();
+                console.log('넘버 ? : ' + `#image${id_num}`);
+                reader.onload = function(e) {
+                    $(`#image${id_num}`).attr('src', e.target.result);
+                }
 
-        function dragElement(elmnt) {
-            var pos1 = 0,
-                pos2 = 0,
-                pos3 = 0,
-                pos4 = 0;
-            if (document.getElementById(elmnt.id + 'mail-form')) {
-                /* if present, the header is where you move the DIV from:*/
-                document.getElementById(elmnt.id + 'mail-form').onmousedown = dragMouseDown;
-            } else {
-                /* otherwise, move the DIV from anywhere inside the DIV:*/
-                elmnt.onmousedown = dragMouseDown;
-            }
-
-            function dragMouseDown(e) {
-                e = e || window.event;
-                e.preventDefault();
-                // get the mouse cursor position at startup:
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                document.onmouseup = closeDragElement;
-                // call a function whenever the cursor moves:
-                document.onmousemove = elementDrag;
-            }
-
-            function elementDrag(e) {
-                e = e || window.event;
-                e.preventDefault();
-                // calculate the new cursor position:
-                pos1 = pos3 - e.clientX;
-                pos2 = pos4 - e.clientY;
-                pos3 = e.clientX;
-                pos4 = e.clientY;
-                // set the element's new position:
-                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-            }
-
-            function closeDragElement() {
-                /* stop moving when mouse button is released:*/
-                document.onmouseup = null;
-                document.onmousemove = null;
+                reader.readAsDataURL(input_id.files[0]);
+            }else{
+              console.log("no image");
+              alert("파일을 반드시 업로드 해주세요!!");
             }
         }
-
+            var modal = document.getElementById("mail");
+            var btn = document.getElementById("mail-prev");
+            btn.onclick = function(){
+                modal.style.display = "block";
+            }
+        
     </script>
 </body>
