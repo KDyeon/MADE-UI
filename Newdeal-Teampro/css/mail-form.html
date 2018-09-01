@@ -1,0 +1,72 @@
+<script language="javascript" type="text/javascript">
+    // 모달 팝업창 띄우기
+    function fnOpen(url) {
+
+        var win, opt;
+
+ 
+
+        // 전체화면 예제
+
+        //opt = "dialogHeight:"+ (screen.availHeight-30) +"; dialogWidth:"+ (screen.availWidth) +";dialogLeft:0px;dialogTop:0px;resizable:no;status:no;scroll:no;help:no;unadorned:no;edge:sunken";
+
+ 
+
+        opt = "help=no;dialogWidth=350px;dialogHeight:230px; center:yes; status:no; resizable:no; scrollbar:no";
+
+        win=window.showModalDialog(url,"myWin",opt);
+
+
+        setVal(win);
+    }
+
+ 
+
+    // 모달 창에서 넘어온 값을 분배
+    function setVal(result) {
+        var f = document.frmGoods;
+        var strMsg = result.split(",");
+
+ 
+
+        strMsg[1] = strMsg[1].replace(" (", "");
+        strMsg[1] = strMsg[1].replace(" )", "");
+
+ 
+
+        orderW.innerHTML  = strMsg[0];   // 첫번째 배열 값
+        orderNP.innerHTML = strMsg[1];  // 두번째 배열 값
+
+ 
+
+        f.tpay.value = strMsg[1];      // input box에 삽입
+    }
+</script>
+
+ 
+<a href="javascript:fnOpen('modal.htm');">모달</a>
+
+
+<input type="radio" name="delivery_chk" id="oops" value="1" on_click="javascript:fnOpen('modal.htm');" on_focus="blur();">
+
+<Label for="oops" on_focus="blur();">모달</Label>
+
+<script language="javascript" type="text/javascript">
+    function init() {
+        var f = document.frmPayments;
+
+ 
+
+        result  = f.fCate.value +" -> ";        // input box의 값을 가져온다.
+        result += f.midCate.value;
+
+ 
+
+        if ( f.faster.checked == true ) result += "|2";     // delimiter로 '|' 를 사용
+        else result += "|1";
+
+ 
+
+        window.returnValue = result;        // 값을 넘긴다.
+    }
+</script>

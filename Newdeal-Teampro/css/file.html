@@ -2,12 +2,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>폼 추가/삭제 예제</title>
     <title>mail-form</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="maill.css">
     <link rel="stylesheet" type="text/css" href="common.css">
 </head>
-
 <body>
-    <div id="mail" >
+        <div id="mail" >
         <input type="text" id="form-title" placeholder="[ TITLE ]">
         <div id="form-mail"></div>
         <center>
@@ -25,7 +25,41 @@
         </center>
     </div>
     <button id="addBtn" type="button">추가</button>
-     <script src="https://code.jquery.com/jquery-latest.js"></script>
+      
+      
+       <!-- <div id="mail-form">
+            <div id="bott">
+                <center>
+                    <a id="preview_mail" data-toggle="modal" class="btn btn-secondary" data-target="#form-mail" href="#form-mail">미리보기</a>
+                    <button id="mail-submit" class="btn btn-light">확인</button>
+                </center>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1"
+     role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+           <div class="modal-dialog">
+           <div class="modal-content">
+           <div class="modal-header">
+               <h4 class="modal-title">PREVIEW</h4>
+               <button type="button" class = "close" data-dismiss="modal">&times;</button>
+           </div>
+           <div class="modal-body">
+            <input type="text" id="form-title" placeholder="[ TITLE ]">
+            <center>
+                <div id="test" name="mailId">
+                </div>
+            </center>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">CLOSE</button>
+            </div>
+            </div>
+            </div>
+            </div>
+        </div>
+
+    <button id="addBtn" type="button">추가</button>-->
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
     <script src="node_modules/handlebars/dist/handlebars.min.js"></script>
     <script src="node_modules/jquery/dist/jquery.js"></script>
     <script src="node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js"></script>
@@ -33,6 +67,7 @@
     <script src="node_modules/blueimp-canvas-to-blob/js/canvas-to-blob.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script src="node_modules/blueimp-file-upload/js/jquery.iframe-transport.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.js"></script>
     <script src="node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
     <script src="node_modules/blueimp-file-upload/js/jquery.fileupload-process.js"></script>
     <script src="node_modules/blueimp-file-upload/js/jquery.fileupload-image.js"></script>
@@ -75,10 +110,10 @@
                 alert('항목을 모두 추가하셨습니다.');
             };
         });
-       $('#test').click((e) => {
+        $('#test').click((e) => {
             var click_id = e.target.getAttribute('id');
             var id_num = click_id.substr(10, 11);
-            if (click_id.substr(0, 10) == 'fileupload') {                
+            if (click_id.substr(0, 10) == 'fileupload') {
                 $(`#fileupload${id_num}`).change(() => {
                     console.log(`#fileupload${id_num}`);
                     var input_id = `#fileupload${id_num}`;
@@ -90,8 +125,8 @@
         })
 
         function readURL(id_num) {
-            var input_id  = document.querySelector(`#fileupload${id_num}`);
-            console.log('체크 값 : '+ input_id.files[0]);
+            var input_id = document.querySelector(`#fileupload${id_num}`);
+            console.log('체크 값 : ' + input_id.files[0]);
             if (input_id.files && input_id.files[0]) {
                 var reader = new FileReader();
                 console.log('넘버 ? : ' + `#image${id_num}`);
@@ -100,16 +135,19 @@
                 }
 
                 reader.readAsDataURL(input_id.files[0]);
-            }else{
-              console.log("no image");
-              alert("파일을 반드시 업로드 해주세요!!");
+            } else {
+                console.log("no image");
+                alert("파일을 반드시 업로드 해주세요!!");
             }
+                    console.log("여긴가");
         }
-          function preview(){
+            
+               function preview(){
               var prev;
               prev = window.open('#test', 'introwin',
                               'width=1200,height=2400'  );
           }
         
+
     </script>
 </body>
